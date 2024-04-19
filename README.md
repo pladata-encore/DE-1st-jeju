@@ -14,8 +14,11 @@
 ## 본론
 ### 개발 환경
 Python : Jupyter-Notebook / conda 24.1.2 / Python 3.9.19
+
 IDE : VSCode
+
 Modules : sqlalchemy / urllib / selenium / time / random / re / pandas / pickle / requests / BeautifulSoup
+
 MySQL : HeidiSQL
 
 ### 활용한 데이터 설명 및 전처리 과정 설명
