@@ -1,24 +1,24 @@
-# 신규 개업 추천 지역 쿼리
-# 운영중인 업장 대비 객단가가 높은 지역
+/* 신규 개업 추천 지역 쿼리 */
 
+# 운영중인 업장 대비 객단가가 높은 지역
 (SELECT 
-p.midAddr, 
-ROUND(SUM(p.costOfcard) / SUM(p.cntOfuser)) ARPPU,
-CONCAT(ROUND(d_set.ratio * 100,2), "%") ratio,
-ROUND(ROUND(SUM(p.costOfcard) / SUM(p.cntOfuser)) * d_set.ratio) depth
+	p.midAddr, 
+	ROUND(SUM(p.costOfcard) / SUM(p.cntOfuser)) ARPPU,
+	CONCAT(ROUND(d_set.ratio * 100,2), "%") ratio,
+	ROUND(ROUND(SUM(p.costOfcard) / SUM(p.cntOfuser)) * d_set.ratio) depth
 FROM mashup p
-INNER JOIN (
-(SELECT 
-a.mid_addr,
-(a.total_operaCnt/(SELECT 
-				SUM(operaCnt) total_operaCnt
-				FROM cum_business )) ratio
-FROM
-(SELECT 
-mid_addr, 
-SUM(operaCnt) total_operaCnt
-FROM cum_business 
-GROUP BY 1) a
+	INNER JOIN (
+	(SELECT 
+	a.mid_addr,
+	(a.total_operaCnt/(SELECT 
+			   SUM(operaCnt) total_operaCnt
+			   FROM cum_business )) ratio
+	FROM
+	(SELECT 
+		mid_addr, 
+		SUM(operaCnt) total_operaCnt
+	FROM cum_business 
+	GROUP BY 1) a
 GROUP BY 1)
 ) AS d_set ON d_set.mid_addr = p.midAddr
 WHERE useType IN 
